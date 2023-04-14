@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.etoak.mapper.PandaMapper">
+    <insert id="addPandas">
+        insert into panda(pid,aid) values
+        <foreach collection="aids" separator="," item="aid">
+            (#{pid},#{aid})
+        </foreach>
+    </insert>
+    <select id="getAttributesByPid" resultType="java.lang.Integer">
+        select aid from panda where pid = #{pid}
+    </select>
+
+
+</mapper>

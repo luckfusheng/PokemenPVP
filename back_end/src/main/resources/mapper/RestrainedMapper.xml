@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.etoak.mapper.RestrainedMapper">
+
+    <select id="getRestrainedByPid" resultType="com.etoak.commons.dto.RestrainedDTO">
+        SELECT advantage,inferiorposition,`offset`,p.name advantageName,n.name inferiorName
+        from restrained LEFT JOIN attributes p on p.id = advantage
+        LEFT JOIN attributes n on n.id = inferiorposition
+        WHERE restrained.advantage = #{pid}
+    </select>
+
+    <select id="getByAdvantageInferior" resultType="com.etoak.commons.dto.RestrainedDTO">
+        SELECT advantage,inferiorposition,`offset`,p.name advantageName,n.name inferiorName
+        from restrained LEFT JOIN attributes p on p.id = advantage
+        LEFT JOIN attributes n on n.id = inferiorposition
+        WHERE advantage = #{aid} and inferiorposition = #{iid}
+    </select>
+
+</mapper>

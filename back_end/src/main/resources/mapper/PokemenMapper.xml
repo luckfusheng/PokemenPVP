@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.etoak.mapper.PokemenMapper">
+    <select id="totalPokemen" resultType="int">
+        select count(0) from pokemen
+        <where>
+            <if test="name != null and name != ''">
+                or pokemen.name like '%${name}%'
+            </if>
+            <if test="id != null and id != 0">
+                or pokemen.id = #{id}
+            </if>
+        </where>
+    </select>
+
+    <select id="listPokemen"  resultMap="rmList">
+        SELECT pokemen.id pid,pokemen.number,pokemen.name pname,pokemen.ss,
+            pokemen.url,pokemen.stature,pokemen.weight,
+            pokemen.characteristic
+        FROM pokemen
+        <where>
+            <if test="name != null and name != ''">
+                and pokemen.name like '%${name}%'
+            </if>
+            <if test="number != null and number != 0">
+                and pokemen.number = #{number}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectAttributes" resultMap="rmAttributes" >
+        select attributes.id,attributes.`name` from  panda
+        LEFT JOIN attributes on panda.aid = attributes.id
+        where panda.pid = #{pid}
+    </select>
+
+    <resultMap id="rmList" type="com.etoak.commons.dto.PokemenDTO">
+        <id property="id" column="pid"></id>
+        <result property="name" column="pname"></result>
+        <result property="number" column="number"></result>
+        <result property="ss" column="ss"></result>
+        <result property="url" column="url"></result>
+        <result property="stature" column="stature"></result>
+        <result property="weight" column="weight"></result>
+        <result property="characteristic" column="characteristic"></result>
+        <collection property="attributesList" select="selectAttributes" column="pid" />
+    </resultMap>
+    <resultMap id="rmAttributes" type="attributes">
+        <id property="id" column="id"></id>
+        <result property="name" column="name"></result>
+    </resultMap>
+
+</mapper>

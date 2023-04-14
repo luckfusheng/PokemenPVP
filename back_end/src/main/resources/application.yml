@@ -1,0 +1,26 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql:///et2211?serverTimezone=UTC
+    username: root
+    password: etoak
+    type: com.alibaba.druid.pool.DruidDataSource
+
+
+mybatis-plus:
+  type-aliases-package: com.etoak
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+image:
+  dir: d:/upload/pokemen
+  prefix: /files
+  types:
+    - image/jpeg
+    - image/png
+
+pagehelper:
+  reasonable: true
